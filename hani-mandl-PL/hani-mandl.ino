@@ -1788,8 +1788,8 @@ void processAutomatik(void)
     // kein Glas aufgestellt
     if ( gewicht < -20 ) {
       u8g2.setFont(u8g2_font_courB12_tf);
-      u8g2.setCursor(28, 30); u8g2.print("Postaw sloik");
-      u8g2.setCursor(28, 44); u8g2.print("na wage");
+      u8g2.setCursor(28, 30); u8g2.print("Postaw ");
+      u8g2.setCursor(28, 44); u8g2.print("sloik");
     } else {
       u8g2.setCursor(10, 42);
       u8g2.setFont(u8g2_font_courB24_tf);
