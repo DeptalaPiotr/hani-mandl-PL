@@ -561,7 +561,7 @@ void setupTripCounter(void) { //Kud
       sprintf(ausgabe, "%4dg%3s", glaeser[j].Gewicht, GlasTypArray[glaeser[j].GlasTyp]);
       u8g2.print(ausgabe);
       u8g2.setCursor(50, 10 + (j * 13));
-      sprintf(ausgabe, "%5d St.", glaeser[j].TripCount);
+      sprintf(ausgabe, "%5d Szt", glaeser[j].TripCount);
       u8g2.print(ausgabe);
       j++;
     }
@@ -693,7 +693,7 @@ void setupCounter(void) { //Kud
       sprintf(ausgabe, "%4dg%3s", glaeser[j].Gewicht,GlasTypArray[glaeser[j].GlasTyp]);
       u8g2.print(ausgabe);
       u8g2.setCursor(50, 10 + (j * 13));
-      sprintf(ausgabe, "%5d St.", glaeser[j].Count);
+      sprintf(ausgabe, "%5d Szt", glaeser[j].Count);
       u8g2.print(ausgabe);
       j++;
     }
@@ -841,7 +841,7 @@ void setupTara(void) {
           sprintf(ausgabe, " %4dg", glaeser[j].Tara);
           u8g2.print(ausgabe);
         } else {
-          u8g2.print("brakuje");
+          u8g2.print(" brak");
         }
         j++;
       }
@@ -888,7 +888,7 @@ void setupCalibration(void) {
 
     int blinktime = (millis()/10) % 5;
     u8g2.clearBuffer();
-    u8g2.setCursor(0, 12);u8g2.print("Prosze ");
+    u8g2.setCursor(0, 12);u8g2.print("Ustaw ");
 
     if (blinktime < 3) {
       sprintf(ausgabe, "%dg", kali_gewicht);
@@ -896,18 +896,18 @@ void setupCalibration(void) {
       sprintf(ausgabe, "     ");
     }
     u8g2.print(ausgabe);
-    u8g2.setCursor(0, 28);    u8g2.print("Ustaw");
+    u8g2.setCursor(0, 28);    u8g2.print("na wadze");
     u8g2.setCursor(0, 44);    u8g2.print("i potwierdz");
     u8g2.setCursor(0, 60);    u8g2.print("za pomoca OK");
     u8g2.sendBuffer();
 
     if ((digitalRead(SELECT_SW)) == SELECT_PEGEL) {
       u8g2.clearBuffer();
-      u8g2.setCursor(0, 12);u8g2.print("Prosze ");
+      u8g2.setCursor(0, 12);u8g2.print("uestaw ");
       sprintf(ausgabe, "%dg", kali_gewicht);
       u8g2.print(ausgabe);
-      u8g2.setCursor(0, 28);    u8g2.print("Ustaw");
-      u8g2.setCursor(0, 44);    u8g2.print("i potwierdź");
+      u8g2.setCursor(0, 28);    u8g2.print("na wadze");
+      u8g2.setCursor(0, 44);    u8g2.print("i potwierdz");
       u8g2.setCursor(0, 60);    u8g2.print("za pomoca OK");
       u8g2.sendBuffer();
       gewicht_raw  = scale.get_units(10);
@@ -1121,7 +1121,7 @@ void setupAutomatik(void) {
     u8g2.clearBuffer();
     u8g2.setCursor(10, 10); sprintf(ausgabe,"Autostart %3s", (autostart==0?"on":"off"));     u8g2.print(ausgabe);
     u8g2.setCursor(10, 23); sprintf(ausgabe,"Autokor. %3s", (autokorrektur==0?"on":"off")); u8g2.print(ausgabe);
-    u8g2.setCursor(10, 36); sprintf(ausgabe,"-> Wartosc %2dg", kulanz_gr);                     u8g2.print(ausgabe);
+    u8g2.setCursor(10, 36); sprintf(ausgabe,"->Wartosc %2dg", kulanz_gr);                     u8g2.print(ausgabe);
     u8g2.setCursor(10, 62); u8g2.print(     "Zapisz");
 
     // Positionsanzeige im Menu. "*" wenn nicht ausgewählt, Pfeil wenn ausgewählt
@@ -1390,7 +1390,7 @@ void setupClearPrefs(void) {
     pos = getRotariesValue(SW_MENU);
     u8g2.setFont(u8g2_font_courB10_tf);
     u8g2.clearBuffer();
-    u8g2.setCursor(10, 12);    u8g2.print("Skasuj");
+    u8g2.setCursor(10, 12);    u8g2.print("Resetuj");
     u8g2.setCursor(10, 28);    u8g2.print("Powrót!");
 
     u8g2.setCursor(0, 12+((pos)*16));
@@ -1439,13 +1439,13 @@ void processSetupList(void) {
      u8g2.setCursor(10, 10);   u8g2.print("Tara");
      u8g2.setCursor(10, 23);   u8g2.print("Kalibracja");
      u8g2.setCursor(10, 36);   u8g2.print("Korekta");
-     u8g2.setCursor(10, 49);   u8g2.print("Pojemnosc");
-     u8g2.setCursor(10, 62);   u8g2.print("auto");
+     u8g2.setCursor(10, 49);   u8g2.print("Poj. sloika");
+     u8g2.setCursor(10, 62);   u8g2.print("Tryb Auto");
      u8g2.setFont(u8g2_font_open_iconic_arrow_2x_t);
      u8g2.drawGlyph(112, 64, 0x40);
   } else {
      u8g2.setCursor(10, 10);   u8g2.print("Servo");
-     u8g2.setCursor(10, 23);   u8g2.print("Parametr");
+     u8g2.setCursor(10, 23);   u8g2.print("Ustawienia");
      u8g2.setCursor(10, 36);   u8g2.print("Licznik");//Kud
      u8g2.setCursor(10, 49);   u8g2.print("Licznik Tryb");//Kud
      u8g2.setCursor(10, 62);   u8g2.print("Reset wagi");
