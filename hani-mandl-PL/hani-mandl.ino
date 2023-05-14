@@ -645,7 +645,7 @@ void setupTripCounter(void) { //Kud
       u8g2.setFont(u8g2_font_courB10_tf);
       u8g2.clearBuffer();
       u8g2.setCursor(10, 12);    u8g2.print("Reset");
-      u8g2.setCursor(10, 28);    u8g2.print("Przerywać");
+      u8g2.setCursor(10, 28);    u8g2.print("Powrot");
 
       u8g2.setCursor(0, 12 + ((pos) * 16));
       u8g2.print("*");
@@ -755,7 +755,7 @@ void setupCounter(void) { //Kud
     u8g2.clearBuffer();
     u8g2.setFont(u8g2_font_courB14_tf);
     u8g2.setCursor(1, 15);
-    u8g2.print("Summa:");
+    u8g2.print("Suma:");
     u8g2.setFont(u8g2_font_courB18_tf);
     u8g2.setCursor(10, 50);
     sprintf(ausgabe, "%5.1fkg", Abfuellgewicht);
@@ -777,7 +777,7 @@ void setupCounter(void) { //Kud
       u8g2.setFont(u8g2_font_courB10_tf);
       u8g2.clearBuffer();
       u8g2.setCursor(10, 12);    u8g2.print("Reset");
-      u8g2.setCursor(10, 28);    u8g2.print("Przerywać");
+      u8g2.setCursor(10, 28);    u8g2.print("Powrot");
 
       u8g2.setCursor(0, 12 + ((pos) * 16));
       u8g2.print("*");
@@ -841,7 +841,7 @@ void setupTara(void) {
           sprintf(ausgabe, " %4dg", glaeser[j].Tara);
           u8g2.print(ausgabe);
         } else {
-          u8g2.print(" brakuje");
+          u8g2.print("brakuje");
         }
         j++;
       }
@@ -858,10 +858,10 @@ void setupCalibration(void) {
 
   u8g2.clearBuffer();
   u8g2.setFont(u8g2_font_courB12_tf);
-  u8g2.setCursor(0, 12);    u8g2.print("Proszę opróżnić");
-  u8g2.setCursor(0, 28);    u8g2.print("wagę");
-  u8g2.setCursor(0, 44);    u8g2.print("i potwierdzić");
-  u8g2.setCursor(0, 60);    u8g2.print("za pomocą OK");
+  u8g2.setCursor(0, 12);    u8g2.print("Opróznij");
+  u8g2.setCursor(0, 28);    u8g2.print("wage");
+  u8g2.setCursor(0, 44);    u8g2.print("i potwierdz");
+  u8g2.setCursor(0, 60);    u8g2.print("za pomoca OK");
   u8g2.sendBuffer();
 
   i = 1;
@@ -888,7 +888,7 @@ void setupCalibration(void) {
 
     int blinktime = (millis()/10) % 5;
     u8g2.clearBuffer();
-    u8g2.setCursor(0, 12);u8g2.print("Proszę ");
+    u8g2.setCursor(0, 12);u8g2.print("Prosze ");
 
     if (blinktime < 3) {
       sprintf(ausgabe, "%dg", kali_gewicht);
@@ -897,18 +897,18 @@ void setupCalibration(void) {
     }
     u8g2.print(ausgabe);
     u8g2.setCursor(0, 28);    u8g2.print("Ustaw");
-    u8g2.setCursor(0, 44);    u8g2.print("i potwierdź");
-    u8g2.setCursor(0, 60);    u8g2.print("klikając OK");
+    u8g2.setCursor(0, 44);    u8g2.print("i potwierdz");
+    u8g2.setCursor(0, 60);    u8g2.print("za pomoca OK");
     u8g2.sendBuffer();
 
     if ((digitalRead(SELECT_SW)) == SELECT_PEGEL) {
       u8g2.clearBuffer();
-      u8g2.setCursor(0, 12);u8g2.print("Proszę ");
+      u8g2.setCursor(0, 12);u8g2.print("Prosze ");
       sprintf(ausgabe, "%dg", kali_gewicht);
       u8g2.print(ausgabe);
       u8g2.setCursor(0, 28);    u8g2.print("Ustaw");
       u8g2.setCursor(0, 44);    u8g2.print("i potwierdź");
-      u8g2.setCursor(0, 60);    u8g2.print("klikając OK");
+      u8g2.setCursor(0, 60);    u8g2.print("za pomoca OK");
       u8g2.sendBuffer();
       gewicht_raw  = scale.get_units(10);
       faktor       = gewicht_raw / kali_gewicht;
@@ -948,12 +948,12 @@ void setupKorrektur(void) {
       u8g2.setFont(u8g2_font_courB12_tf);
       u8g2.clearBuffer();
       u8g2.setCursor(10, 12);
-      u8g2.print("Korrektur");
+      u8g2.print("Korekta");
       u8g2.setCursor(40, 28);
       u8g2.print(korrektur);
 
       u8g2.setCursor(10, 48);     // A.P.
-      u8g2.print("alter Wert");   // A.P.
+      u8g2.print("stara wartosc");   // A.P.
       u8g2.setCursor(40, 64);     // A.P.
       u8g2.print(korrektur_alt);  // A.P.
 
@@ -1012,18 +1012,18 @@ void setupServoWinkel(void) {
 
     u8g2.clearBuffer();
     u8g2.setCursor(10, 23); sprintf(ausgabe,"Minimum   %3d", winkel_min);  u8g2.print(ausgabe);
-    u8g2.setCursor(10, 36); sprintf(ausgabe,"Feindos.  %3d", winkel_fein); u8g2.print(ausgabe);
+    u8g2.setCursor(10, 36); sprintf(ausgabe,"Dokladny.  %3d", winkel_fein); u8g2.print(ausgabe);
     u8g2.setCursor(10, 49); sprintf(ausgabe,"Maximum   %3d", winkel_max);  u8g2.print(ausgabe);
     u8g2.setCursor(10, 62); u8g2.print(     "Zapisz");
 
     if ( wert_aendern == false ) {
-       u8g2.setCursor(10, 10); sprintf(ausgabe,"Livesetup %3s", (servo_live==false?"aus":"ein")); u8g2.print(ausgabe);
+       u8g2.setCursor(10, 10); sprintf(ausgabe,"Livesetup %3s", (servo_live==false?"on":"off")); u8g2.print(ausgabe);
        u8g2.setCursor( 0, 10+(menuitem*13)); u8g2.print("*");
     } else {
        if ( menuitem != 0 ) {
-          u8g2.setCursor(10, 10); sprintf(ausgabe,"  vorher: %3d", wert_alt); u8g2.print(ausgabe);
+          u8g2.setCursor(10, 10); sprintf(ausgabe,"  przed: %3d", wert_alt); u8g2.print(ausgabe);
        } else {
-          u8g2.setCursor(10, 10); sprintf(ausgabe,"Livesetup %3s", (servo_live==false?"aus":"ein")); u8g2.print(ausgabe);
+          u8g2.setCursor(10, 10); sprintf(ausgabe,"Livesetup %3s", (servo_live==false?"on":"off")); u8g2.print(ausgabe);
        }
        u8g2.setFont(u8g2_font_open_iconic_arrow_1x_t);
        u8g2.drawGlyph(0, 10+(menuitem*13), 0x42);
@@ -1119,9 +1119,9 @@ void setupAutomatik(void) {
 
     // Menu
     u8g2.clearBuffer();
-    u8g2.setCursor(10, 10); sprintf(ausgabe,"Autostart %3s", (autostart==0?"aus":"ein"));     u8g2.print(ausgabe);
-    u8g2.setCursor(10, 23); sprintf(ausgabe,"Autokorr. %3s", (autokorrektur==0?"aus":"ein")); u8g2.print(ausgabe);
-    u8g2.setCursor(10, 36); sprintf(ausgabe,"-> Kulanz %2dg", kulanz_gr);                     u8g2.print(ausgabe);
+    u8g2.setCursor(10, 10); sprintf(ausgabe,"Autostart %3s", (autostart==0?"on":"off"));     u8g2.print(ausgabe);
+    u8g2.setCursor(10, 23); sprintf(ausgabe,"Autokor. %3s", (autokorrektur==0?"on":"off")); u8g2.print(ausgabe);
+    u8g2.setCursor(10, 36); sprintf(ausgabe,"-> Wartosc %2dg", kulanz_gr);                     u8g2.print(ausgabe);
     u8g2.setCursor(10, 62); u8g2.print(     "Zapisz");
 
     // Positionsanzeige im Menu. "*" wenn nicht ausgewählt, Pfeil wenn ausgewählt
@@ -1318,7 +1318,7 @@ void setupParameter(void) {
     // Menu
     u8g2.setFont(u8g2_font_courB10_tf);
     u8g2.clearBuffer();
-    sprintf(ausgabe,"Buzzer    %3s", (buzzermode==0?"WYŁ":"WŁĄ"));
+    sprintf(ausgabe,"Buzzer    %3s", (buzzermode==0?"on":"off"));
     u8g2.setCursor(10, 10);    u8g2.print(ausgabe);
     sprintf(ausgabe,"Menu   %6s", (setup_modern==0?" Lista":"Scroll"));
     u8g2.setCursor(10, 23);    u8g2.print(ausgabe);
@@ -1439,16 +1439,16 @@ void processSetupList(void) {
      u8g2.setCursor(10, 10);   u8g2.print("Tara");
      u8g2.setCursor(10, 23);   u8g2.print("Kalibracja");
      u8g2.setCursor(10, 36);   u8g2.print("Korekta");
-     u8g2.setCursor(10, 49);   u8g2.print("Pojemność");
-     u8g2.setCursor(10, 62);   u8g2.print("automatyczny");
+     u8g2.setCursor(10, 49);   u8g2.print("Pojemnosc");
+     u8g2.setCursor(10, 62);   u8g2.print("auto");
      u8g2.setFont(u8g2_font_open_iconic_arrow_2x_t);
      u8g2.drawGlyph(112, 64, 0x40);
   } else {
-     u8g2.setCursor(10, 10);   u8g2.print("Kąt servo");
+     u8g2.setCursor(10, 10);   u8g2.print("Servo");
      u8g2.setCursor(10, 23);   u8g2.print("Parametr");
      u8g2.setCursor(10, 36);   u8g2.print("Licznik");//Kud
      u8g2.setCursor(10, 49);   u8g2.print("Licznik Tryb");//Kud
-     u8g2.setCursor(10, 62);   u8g2.print("Wyczyść preferencje");
+     u8g2.setCursor(10, 62);   u8g2.print("Reset wagi");
      u8g2.setFont(u8g2_font_open_iconic_arrow_2x_t);
      u8g2.drawGlyph(112, 16, 0x43);
   }
@@ -1531,7 +1531,7 @@ void processSetupScroll(void) {
     delay(250);
     while( digitalRead(SELECT_SW) == SELECT_PEGEL ) {}
 #ifdef isDebug
-    Serial.print("Setup Position: ");
+    Serial.print("Pozycja ustawienia: ");
     Serial.println(menuitem);
 #endif
 
@@ -1761,18 +1761,18 @@ void processAutomatik(void)
 
 #ifdef isDebug
 #if isDebug >= 4
-    Serial.print("Automatyczny:");
+    Serial.print("Auto:");
     Serial.print(" Waga: ");        Serial.print(gewicht);
-    Serial.print(" Kąt: ");         Serial.print(winkel);
+    Serial.print(" Kat: ");         Serial.print(winkel);
 //    Serial.print(" Dauer ");           Serial.print(millis() - scaletime);
 //    Serial.print(" Füllmenge: ");      Serial.print(fmenge);
 //    Serial.print(" Korrektur: ");      Serial.print(korrektur);
 //    Serial.print(" Tara_glas:");       Serial.print(tara_glas);
-    Serial.print(" Autokorrektur: ");  Serial.print(autokorrektur_gr);
-    Serial.print(" Zielgewicht ");     Serial.print(zielgewicht);
+    Serial.print(" Korekta: ");  Serial.print(autokorrektur_gr);
+    Serial.print(" Docelowa waga ");     Serial.print(zielgewicht);
 //    Serial.print(" Erzwinge Servo: "); Serial.print(erzwinge_servo_aktiv);
 //    Serial.print(" servo_aktiv ");     Serial.print(servo_aktiv);
-    Serial.print(" auto_aktiv ");      Serial.println(auto_aktiv);
+    Serial.print(" auto_aktyw. ");      Serial.println(auto_aktiv);
 #endif
 #endif
   time_vorher = millis();
@@ -1788,8 +1788,8 @@ void processAutomatik(void)
     // kein Glas aufgestellt
     if ( gewicht < -20 ) {
       u8g2.setFont(u8g2_font_courB12_tf);
-      u8g2.setCursor(28, 30); u8g2.print("Proszę położyć");
-      u8g2.setCursor(28, 44); u8g2.print("słoik");
+      u8g2.setCursor(28, 30); u8g2.print("Postaw sloik");
+      u8g2.setCursor(28, 44); u8g2.print("na wage");
     } else {
       u8g2.setCursor(10, 42);
       u8g2.setFont(u8g2_font_courB24_tf);
@@ -2058,7 +2058,7 @@ void setup()
       u8g2.clearBuffer();
       u8g2.setFont(u8g2_font_courB18_tf);
       u8g2.setCursor( 24, 24); u8g2.print("Zwolnij");
-      u8g2.setCursor( 10, 56); u8g2.print("wagę!");
+      u8g2.setCursor( 10, 56); u8g2.print("wage!");
       u8g2.sendBuffer();
 #ifdef isDebug
         Serial.print("Gewicht auf der Waage: ");
@@ -2163,7 +2163,7 @@ delay(2000);
   u8g2.print("www.PasiekaG.pl");
   u8g2.sendBuffer();
 
-delay(4000);
+delay(2500);
 }
 
 
