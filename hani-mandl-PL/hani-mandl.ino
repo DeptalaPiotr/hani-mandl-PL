@@ -1494,7 +1494,7 @@ void processSetupScroll(void) {
   }
   int MenuepunkteAnzahl = 10;
   char *menuepunkte[] = {
-    " Tarawerte","Kalibrieren"," Korrektur"," Füllmenge"," Automatik"," Servoeinst."," Parameter","  Zählwerk","ZählwerkTrip","Clear Prefs"
+    " Tara","Kalibracja"," Korekta"," Poj. sloika"," Tryb Auto"," Servo"," Ustawienia","  Licznik","Licznik Tryb","Reset wagi"
   };
   int menuitem = getRotariesValue(SW_MENU);
   menuitem = menuitem % MenuepunkteAnzahl;
