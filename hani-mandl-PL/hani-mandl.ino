@@ -1119,9 +1119,9 @@ void setupAutomatik(void) {
 
     // Menu
     u8g2.clearBuffer();
-    u8g2.setCursor(10, 10); sprintf(ausgabe,"Autostart %3s", (autostart==0?"off":"on"));     u8g2.print(ausgabe);
-    u8g2.setCursor(10, 23); sprintf(ausgabe,"Autokor. %3s", (autokorrektur==0?"off":"on")); u8g2.print(ausgabe);
-    u8g2.setCursor(10, 36); sprintf(ausgabe,"->Wartosc %2dg", kulanz_gr);                     u8g2.print(ausgabe);
+    u8g2.setCursor(10, 10); sprintf(ausgabe,"Autostart %3s", (autostart==0?"on":"off"));     u8g2.print(ausgabe);
+    u8g2.setCursor(10, 23); sprintf(ausgabe,"Autokor. %3s", (autokorrektur==0?"on":"off")); u8g2.print(ausgabe);
+    u8g2.setCursor(10, 36); sprintf(ausgabe,"-> Wartosc %2dg", kulanz_gr);                     u8g2.print(ausgabe);
     u8g2.setCursor(10, 62); u8g2.print(     "Zapisz");
 
     // Positionsanzeige im Menu. "*" wenn nicht ausgewählt, Pfeil wenn ausgewählt
@@ -1318,7 +1318,7 @@ void setupParameter(void) {
     // Menu
     u8g2.setFont(u8g2_font_courB10_tf);
     u8g2.clearBuffer();
-    sprintf(ausgabe,"Buzzer    %3s", (buzzermode==0?"on":"off"));
+    sprintf(ausgabe,"Buzzer    %3s", (buzzermode==0?"off":"on"));
     u8g2.setCursor(10, 10);    u8g2.print(ausgabe);
     sprintf(ausgabe,"Menu   %6s", (setup_modern==0?" Lista":"Scroll"));
     u8g2.setCursor(10, 23);    u8g2.print(ausgabe);
@@ -1531,7 +1531,7 @@ void processSetupScroll(void) {
     delay(250);
     while( digitalRead(SELECT_SW) == SELECT_PEGEL ) {}
 #ifdef isDebug
-    Serial.print("Pozycja ustawienia: ");
+    Serial.print("Setup Position: ");
     Serial.println(menuitem);
 #endif
 
@@ -1761,18 +1761,18 @@ void processAutomatik(void)
 
 #ifdef isDebug
 #if isDebug >= 4
-    Serial.print("Auto:");
-    Serial.print(" Waga: ");        Serial.print(gewicht);
-    Serial.print(" Kat: ");         Serial.print(winkel);
+    Serial.print("Automatik:");
+    Serial.print(" Gewicht: ");        Serial.print(gewicht);
+    Serial.print(" Winkel: ");         Serial.print(winkel);
 //    Serial.print(" Dauer ");           Serial.print(millis() - scaletime);
 //    Serial.print(" Füllmenge: ");      Serial.print(fmenge);
 //    Serial.print(" Korrektur: ");      Serial.print(korrektur);
 //    Serial.print(" Tara_glas:");       Serial.print(tara_glas);
-    Serial.print(" Korekta: ");  Serial.print(autokorrektur_gr);
-    Serial.print(" Docelowa waga ");     Serial.print(zielgewicht);
+    Serial.print(" Autokorrektur: ");  Serial.print(autokorrektur_gr);
+    Serial.print(" Zielgewicht ");     Serial.print(zielgewicht);
 //    Serial.print(" Erzwinge Servo: "); Serial.print(erzwinge_servo_aktiv);
 //    Serial.print(" servo_aktiv ");     Serial.print(servo_aktiv);
-    Serial.print(" auto_aktyw. ");      Serial.println(auto_aktiv);
+    Serial.print(" auto_aktiv ");      Serial.println(auto_aktiv);
 #endif
 #endif
   time_vorher = millis();
@@ -1925,7 +1925,7 @@ void processHandbetrieb(void)
   u8g2.setCursor(0, 11);
   sprintf(ausgabe,"W=%-3d    %3d%%", winkel, pos);
   u8g2.print(ausgabe);
-  u8g2.setCursor(0, 54);
+  u8g2.setCursor(0, 64);
   sprintf(ausgabe, "Manualny  %s", (tara>0?"Tara":"    "));
   u8g2.print(ausgabe);
 
