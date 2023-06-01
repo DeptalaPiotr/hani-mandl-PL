@@ -387,7 +387,7 @@ void getPreferences(void) {
     preferences_chksum = faktor + pos + gewicht_leer + korrektur + autostart + autokorrektur + fmenge_index + winkel_min + winkel_max + winkel_fein + kulanz_gr + buzzermode + kali_gewicht + setup_modern;
 
     i = 0;
-    int ResetGewichte[] = {125,250,250,500,500,};
+    int ResetGewichte[] = {125,250,250,500,1200,};
     int ResetGlasTyp[] = {0,1,2,1,0,};
     while( i < 5) {
       sprintf(ausgabe, "Gewicht%d", i); //JB
@@ -830,18 +830,16 @@ void setupTara(void) {
       j = 0;
       while( j < 5  ) {
         u8g2.setCursor(3, 10+(j*13));
-        if ( glaeser[j].Gewicht < 1000 ) {
+        if ( glaeser[j].Gewicht < 1300 ) {
           sprintf(ausgabe, " %3d-%3s", glaeser[j].Gewicht, GlasTypArray[glaeser[j].GlasTyp]);
-        } else {
-          sprintf(ausgabe, " %3s-%3s", "1kg", GlasTypArray[glaeser[j].GlasTyp]);
-        }
+
         u8g2.print(ausgabe);
         u8g2.setCursor(75, 10+(j*13));
         if ( glaeser[j].Tara > 0 ) {
           sprintf(ausgabe, " %4dg", glaeser[j].Tara);
           u8g2.print(ausgabe);
         } else {
-          u8g2.print(" fehlt");
+          u8g2.print(" brak");
         }
         j++;
       }
