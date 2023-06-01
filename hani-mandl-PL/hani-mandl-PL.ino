@@ -2149,23 +2149,7 @@ void print_logo() {
   u8g2.setFont(u8g2_font_courB08_tf);
   u8g2.setCursor(85, 64);    u8g2.print("v.0.2.9");
   u8g2.sendBuffer();
-
-delay(2000);
-
-  u8g2.clearBuffer();
-
-  u8g2.setFont(u8g2_font_courB10_tf);
-  u8g2.setCursor(0, 54);    u8g2.print("HANI MANDL PL");
-  u8g2.setFont(u8g2_font_courB18_tf);
-  u8g2.setCursor(0, 17);    u8g2.print("PasiekaG");
-  u8g2.setFont(u8g2_font_courB08_tf);
-  u8g2.setCursor(0,34 );
-  u8g2.print("www.PasiekaG.pl");
-  u8g2.sendBuffer();
-
-delay(2500);
 }
-
 
 // Wir nutzen einen aktiven Summer, damit entfällt die tone Library, die sich sowieso mit dem Servo beisst.
 void buzzer(byte type) {
