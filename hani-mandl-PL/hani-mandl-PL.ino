@@ -1017,13 +1017,13 @@ void setupServoWinkel(void) {
     u8g2.setCursor(10, 62); u8g2.print(     "Zapisz");
 
     if ( wert_aendern == false ) {
-       u8g2.setCursor(10, 10); sprintf(ausgabe,"Livesetup %3s", (servo_live==false?"on":"off")); u8g2.print(ausgabe);
+       u8g2.setCursor(10, 10); sprintf(ausgabe,"Livesetup %3s", (servo_live==false?"off":"on")); u8g2.print(ausgabe);
        u8g2.setCursor( 0, 10+(menuitem*13)); u8g2.print("*");
     } else {
        if ( menuitem != 0 ) {
           u8g2.setCursor(10, 10); sprintf(ausgabe,"  przed: %3d", wert_alt); u8g2.print(ausgabe);
        } else {
-          u8g2.setCursor(10, 10); sprintf(ausgabe,"Livesetup %3s", (servo_live==false?"on":"off")); u8g2.print(ausgabe);
+          u8g2.setCursor(10, 10); sprintf(ausgabe,"Livesetup %3s", (servo_live==false?"off":"on")); u8g2.print(ausgabe);
        }
        u8g2.setFont(u8g2_font_open_iconic_arrow_1x_t);
        u8g2.drawGlyph(0, 10+(menuitem*13), 0x42);
@@ -1119,8 +1119,8 @@ void setupAutomatik(void) {
 
     // Menu
     u8g2.clearBuffer();
-    u8g2.setCursor(10, 10); sprintf(ausgabe,"Autostart %3s", (autostart==0?"on":"off"));     u8g2.print(ausgabe);
-    u8g2.setCursor(10, 23); sprintf(ausgabe,"Autokor. %3s", (autokorrektur==0?"on":"off")); u8g2.print(ausgabe);
+    u8g2.setCursor(10, 10); sprintf(ausgabe,"Autostart %3s", (autostart==0?"off":"on"));     u8g2.print(ausgabe);
+    u8g2.setCursor(10, 23); sprintf(ausgabe,"Autokor. %3s", (autokorrektur==0?"off":"on")); u8g2.print(ausgabe);
     u8g2.setCursor(10, 36); sprintf(ausgabe,"-> Wartosc %2dg", kulanz_gr);                     u8g2.print(ausgabe);
     u8g2.setCursor(10, 62); u8g2.print(     "Zapisz");
 
