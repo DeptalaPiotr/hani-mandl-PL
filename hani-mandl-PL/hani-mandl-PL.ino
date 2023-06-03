@@ -223,9 +223,9 @@ char *GlasTypArray[3] = { "DIB", "TOF", "DEE"};//DIB = DeutscherImkerBund-Glas D
 struct glas glaeser[5] =            {
                                          {  125, 0, -9999, 0, 0 },
                                          {  250, 1, -9999, 0, 0 },
-                                         {  250, 2, -9999, 0, 0 },
-                                         {  500, 1, -9999, 0, 0 },
-                                         {  500, 0, -9999, 0, 0 }
+                                         {  500, 2, -9999, 0, 0 },
+                                         {  1000, 1, -9999, 0, 0 },
+                                         {  1200, 0, -9999, 0, 0 }
                                     };
 
 // Allgemeine Variablen
@@ -387,7 +387,7 @@ void getPreferences(void) {
     preferences_chksum = faktor + pos + gewicht_leer + korrektur + autostart + autokorrektur + fmenge_index + winkel_min + winkel_max + winkel_fein + kulanz_gr + buzzermode + kali_gewicht + setup_modern;
 
     i = 0;
-    int ResetGewichte[] = {125,250,250,500,1200,};
+    int ResetGewichte[] = {125,250,500,1000,1200,};
     int ResetGlasTyp[] = {0,1,2,1,0,};
     while( i < 5) {
       sprintf(ausgabe, "Gewicht%d", i); //JB
@@ -832,7 +832,9 @@ void setupTara(void) {
         u8g2.setCursor(3, 10+(j*13));
         if ( glaeser[j].Gewicht < 1300 ) {
           sprintf(ausgabe, " %3d-%3s", glaeser[j].Gewicht, GlasTypArray[glaeser[j].GlasTyp]);
-
+        } else {
+          sprintf(ausgabe, " %3s-%3s", "1kg", GlasTypArray[glaeser[j].GlasTyp]);
+        }
         u8g2.print(ausgabe);
         u8g2.setCursor(75, 10+(j*13));
         if ( glaeser[j].Tara > 0 ) {
@@ -901,7 +903,7 @@ void setupCalibration(void) {
 
     if ((digitalRead(SELECT_SW)) == SELECT_PEGEL) {
       u8g2.clearBuffer();
-      u8g2.setCursor(0, 12);u8g2.print("uestaw ");
+      u8g2.setCursor(0, 12);u8g2.print("Ustaw ");
       sprintf(ausgabe, "%dg", kali_gewicht);
       u8g2.print(ausgabe);
       u8g2.setCursor(0, 28);    u8g2.print("na wadze");
@@ -1010,7 +1012,7 @@ void setupServoWinkel(void) {
 
     u8g2.clearBuffer();
     u8g2.setCursor(10, 23); sprintf(ausgabe,"Minimum   %3d", winkel_min);  u8g2.print(ausgabe);
-    u8g2.setCursor(10, 36); sprintf(ausgabe,"Feindos.  %3d", winkel_fein); u8g2.print(ausgabe);
+    u8g2.setCursor(10, 36); sprintf(ausgabe,"Fine  %3d", winkel_fein); u8g2.print(ausgabe);
     u8g2.setCursor(10, 49); sprintf(ausgabe,"Maximum   %3d", winkel_max);  u8g2.print(ausgabe);
     u8g2.setCursor(10, 62); u8g2.print(     "Zapisz");
 
@@ -1019,7 +1021,7 @@ void setupServoWinkel(void) {
        u8g2.setCursor( 0, 10+(menuitem*13)); u8g2.print("*");
     } else {
        if ( menuitem != 0 ) {
-          u8g2.setCursor(10, 10); sprintf(ausgabe,"  vorher: %3d", wert_alt); u8g2.print(ausgabe);
+          u8g2.setCursor(10, 10); sprintf(ausgabe,"  przed: %3d", wert_alt); u8g2.print(ausgabe);
        } else {
           u8g2.setCursor(10, 10); sprintf(ausgabe,"Livesetup %3s", (servo_live==false?"on":"off")); u8g2.print(ausgabe);
        }
@@ -1119,7 +1121,7 @@ void setupAutomatik(void) {
     u8g2.clearBuffer();
     u8g2.setCursor(10, 10); sprintf(ausgabe,"Autostart %3s", (autostart==0?"on":"off"));     u8g2.print(ausgabe);
     u8g2.setCursor(10, 23); sprintf(ausgabe,"Autokor. %3s", (autokorrektur==0?"on":"off")); u8g2.print(ausgabe);
-    u8g2.setCursor(10, 36); sprintf(ausgabe,"-> Kulanz %2dg", kulanz_gr);                     u8g2.print(ausgabe);
+    u8g2.setCursor(10, 36); sprintf(ausgabe,"-> Wartosc %2dg", kulanz_gr);                     u8g2.print(ausgabe);
     u8g2.setCursor(10, 62); u8g2.print(     "Zapisz");
 
     // Positionsanzeige im Menu. "*" wenn nicht ausgewählt, Pfeil wenn ausgewählt
@@ -1318,7 +1320,7 @@ void setupParameter(void) {
     u8g2.clearBuffer();
     sprintf(ausgabe,"Buzzer    %3s", (buzzermode==0?"off":"on"));
     u8g2.setCursor(10, 10);    u8g2.print(ausgabe);
-    sprintf(ausgabe,"Menu   %6s", (setup_modern==0?" Liste":"Scroll"));
+    sprintf(ausgabe,"Menu   %6s", (setup_modern==0?" Lista":"Scroll"));
     u8g2.setCursor(10, 23);    u8g2.print(ausgabe);
     u8g2.setCursor(10, 62);    u8g2.print("Zapisz");
 
@@ -1388,7 +1390,7 @@ void setupClearPrefs(void) {
     pos = getRotariesValue(SW_MENU);
     u8g2.setFont(u8g2_font_courB10_tf);
     u8g2.clearBuffer();
-    u8g2.setCursor(10, 12);    u8g2.print("Resetuj");
+    u8g2.setCursor(10, 12);    u8g2.print("Reset");
     u8g2.setCursor(10, 28);    u8g2.print("Powrót!");
 
     u8g2.setCursor(0, 12+((pos)*16));
@@ -1837,18 +1839,18 @@ void processAutomatik(void)
   else
   {
     if( rotary_select == SW_KORREKTUR && blinktime < 2 ) {
-      if (glaeser[fmenge_index].Gewicht > 999){
+      if (glaeser[fmenge_index].Gewicht > 1300){
         sprintf(ausgabe,"k=   %s %3s-%3s",(autokorrektur==1)?"":" ", "1kg", GlasTypArray[glaeser[fmenge_index].GlasTyp]  );
       } else {
-        sprintf(ausgabe,"k=   %s %3d-%3s",(autokorrektur==1)?"":" ", glaeser[fmenge_index].Gewicht, GlasTypArray[glaeser[fmenge_index].GlasTyp] );
+        sprintf(ausgabe,"k=   %s %3d-%3s",(autokorrektur==1)?"":"", glaeser[fmenge_index].Gewicht, GlasTypArray[glaeser[fmenge_index].GlasTyp] );
       }
     } else if ( rotary_select == SW_MENU && blinktime < 2 ) {
         sprintf(ausgabe,"k=%-3d" , korrektur + autokorrektur_gr, (autokorrektur==1)?"":" " );
     } else {
-      if (glaeser[fmenge_index].Gewicht > 999){
+      if (glaeser[fmenge_index].Gewicht > 1300){
         sprintf(ausgabe,"k=%-3d%s %3s-%3s", korrektur + autokorrektur_gr, (autokorrektur==1)?"":" ", "1kg", GlasTypArray[glaeser[fmenge_index].GlasTyp] );
       } else {
-        sprintf(ausgabe,"k=%-3d%s %3d-%3s", korrektur + autokorrektur_gr, (autokorrektur==1)?"":" ", glaeser[fmenge_index].Gewicht, GlasTypArray[glaeser[fmenge_index].GlasTyp] );
+        sprintf(ausgabe,"k=%-3d%s %3d-%3s", korrektur + autokorrektur_gr, (autokorrektur==1)?"":"", glaeser[fmenge_index].Gewicht, GlasTypArray[glaeser[fmenge_index].GlasTyp] );
       }
     }
     u8g2.print(ausgabe);
@@ -1924,7 +1926,7 @@ void processHandbetrieb(void)
   sprintf(ausgabe,"W=%-3d    %3d%%", winkel, pos);
   u8g2.print(ausgabe);
   u8g2.setCursor(0, 64);
-  sprintf(ausgabe, "Manuell  %s", (tara>0?"Tara":"    "));
+  sprintf(ausgabe, "Manualny  %s", (tara>0?"Tara":"    "));
   u8g2.print(ausgabe);
 
   u8g2.sendBuffer();
@@ -2018,7 +2020,7 @@ void setup()
       u8g2.setCursor( 10, 56); u8g2.print("skalibro.");
       u8g2.sendBuffer();
 #ifdef isDebug
-      Serial.println("Waga nie skalibrowana!");
+      Serial.println("Waage nicht kalibriert!");
 #endif
       delay(2000);
     } else {                                          // Tara und Skalierung setzen
@@ -2032,11 +2034,11 @@ void setup()
     u8g2.clearBuffer();
     u8g2.setFont(u8g2_font_courB24_tf);
     u8g2.setCursor( 14, 24); u8g2.print("Brak");
-    u8g2.setCursor( 6, 56);  u8g2.print("wagi!");
+    u8g2.setCursor( 6, 56);  u8g2.print("Wagi!");
     u8g2.sendBuffer();
     buzzer(BUZZER_ERROR);
 #ifdef isDebug
-    Serial.println("Brak wagi!");
+    Serial.println("Keine Waage!");
 #endif
     delay(2000);
   }
