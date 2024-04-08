@@ -127,7 +127,7 @@
         // mit 5 zusätzlich rotary debug-Infos
         // ACHTUNG: zu viel Serieller Output kann einen ISR-Watchdog Reset auslösen!
 //#define POTISCALE             // Poti simuliert eine Wägezelle, nur für Testbetrieb!
-        #define MAXIMALGEWICHT 1000     // Maximales Gewicht
+        #define MAXIMALGEWICHT 1300     // Maximales Gewicht
 
 // Ansteuerung der Waage
         #define SCALE_READS 2      // Parameter für hx711 Library. Messwert wird aus der Anzahl gemittelt
