@@ -598,7 +598,6 @@ static int aLastState = 2;  // reale Werte sind 0 und 1
         #ifdef isDebug
 //    Serial.println("Preferences unverändert");
         #endif
-        getPreferences();
         return;
         }
         preferences_chksum = preferences_newchksum;
@@ -959,7 +958,7 @@ static int aLastState = 2;  // reale Werte sind 0 und 1
         j = 0;
         while( j < 5  ) {
         u8g2.setCursor(3, 10+(j*13));
-        if ( glaeser[j].Gewicht < 1300 ) {
+        if ( glaeser[j].Gewicht < 1000 ) {
         sprintf(ausgabe, " %3d-%3s", glaeser[j].Gewicht, GlasTypArray[glaeser[j].GlasTyp]);
         } else {
         sprintf(ausgabe, " %3s-%3s", "1kg", GlasTypArray[glaeser[j].GlasTyp]);
@@ -1252,9 +1251,10 @@ static int aLastState = 2;  // reale Werte sind 0 und 1
 
         // Menu
         u8g2.clearBuffer();
+        u8g2.setFont(u8g2_font_helvB08_tf);
         u8g2.setCursor(10, 10); sprintf(ausgabe,"Autostart %3s", (autostart==0?"off":"on"));     u8g2.print(ausgabe);
-        u8g2.setCursor(10, 23); sprintf(ausgabe,"Autokor. %3s", (autokorrektur==0?"off":"on")); u8g2.print(ausgabe);
-        u8g2.setCursor(10, 36); sprintf(ausgabe,"-> Wartosc %2dg", kulanz_gr);                     u8g2.print(ausgabe);
+        u8g2.setCursor(10, 23); sprintf(ausgabe,"Tolerancja Sloika %c%2dg", 177, glastoleranz); u8g2.print(ausgabe);
+        u8g2.setCursor(10, 36); sprintf(ausgabe,"Autokorekta. %3s", (autokorrektur==0?"off":"on")); u8g2.print(ausgabe);
         u8g2.setCursor(10, 49); sprintf(ausgabe,"-> Kulanz %2dg", kulanz_gr);
         u8g2.setCursor(10, 62); u8g2.print(     "Zapisz");
 
@@ -2068,7 +2068,7 @@ static unsigned long dauer;
         u8g2.setCursor(0, 11);
         sprintf(ausgabe,"W=%-3d    %3d%%", winkel, pos);
         u8g2.print(ausgabe);
-        u8g2.setCursor(0, 64);
+        u8g2.setCursor(0, 60);
         sprintf(ausgabe, "Manualny  %s", (tara>0?"Tara":"    "));
         u8g2.print(ausgabe);
 
@@ -2094,7 +2094,7 @@ static unsigned long dauer;
         while (!Serial) {
         }
         #ifdef isDebug
-        Serial.println("Hanimandl Start");
+        Serial.println("HaniMandl Start");
         #endif
 
 // Rotary
@@ -2162,9 +2162,9 @@ static unsigned long dauer;
         if (waage_vorhanden ==1 ) {                         // Waage angeschlossen?
         if ( faktor == 0 ) {                              // Vorhanden aber nicht kalibriert
         u8g2.clearBuffer();
-        u8g2.setFont(u8g2_font_courB18_tf);
+        u8g2.setFont(u8g2_font_courB10_tf);
         u8g2.setCursor( 24, 24); u8g2.print("Nie");
-        u8g2.setCursor( 10, 56); u8g2.print("skalibro.");
+        u8g2.setCursor( 10, 46); u8g2.print("skalibrowano!");
         u8g2.sendBuffer();
         #ifdef isDebug
         Serial.println("Waage nicht kalibriert!");
@@ -2305,7 +2305,7 @@ static unsigned long dauer;
         u8g2.setCursor(85, 27);    u8g2.print("HANI");
         u8g2.setCursor(75, 43);    u8g2.print("MANDL");
         u8g2.setFont(u8g2_font_courB08_tf);
-        u8g2.setCursor(85, 64);    u8g2.print("v.0.2.13");
+        u8g2.setCursor(77, 64);    u8g2.print("v.0.2.13");
         u8g2.sendBuffer();
 
         delay(2000);
@@ -2313,12 +2313,10 @@ static unsigned long dauer;
         u8g2.clearBuffer();
 
         u8g2.setFont(u8g2_font_courB10_tf);
-        u8g2.setCursor(0, 54);    u8g2.print("HANI MANDL PL");
-        u8g2.setFont(u8g2_font_courB18_tf);
-        u8g2.setCursor(0, 17);    u8g2.print("PasiekaG");
-        u8g2.setFont(u8g2_font_courB08_tf);
-        u8g2.setCursor(0,34 );
-        u8g2.print("www.PasiekaG.pl");
+        u8g2.setCursor(0, 34);    u8g2.print("Mellifer.pl");
+        u8g2.setFont(u8g2_font_courB10_tf);
+        u8g2.setCursor(0,54 );
+        u8g2.print("PasiekaG.pl");
         u8g2.sendBuffer();
 
         delay(2500);
