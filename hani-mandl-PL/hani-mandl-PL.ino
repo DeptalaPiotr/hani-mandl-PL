@@ -1,95 +1,98 @@
 /*
-  HaniMandl Version 0.2.13
+  HaniMandl Wersja 0.2.13
   ------------------------
   Copyright (C) 2018-2023 by Marc Vasterling, Marc Wetzel, Clemens Gruber, Marc Junker, Andreas Holzhammer, Johannes Kuder, Jeremias Bruker
 
-  2018-05 Marc Vasterling    | initiale Version,
-                               veröffentlicht in der Facebook-Gruppe "Imkerei und Technik. Eigenbau",
-                               Marc Vasterling: "meinen Code kann jeder frei verwenden, ändern und hochladen wo er will, solange er nicht seinen eigenen Namen drüber setzt."
-  2018-06 Marc Vasterling    | verbesserte Version,
-                               ebenfalls veröffentlicht in der Facebook-Gruppe
-  2019-01 Marc Wetzel        | Refakturierung und Dokumentation,
-                               ebenfalls veröffentlicht in der Facebook-Gruppe
-  2019-02 Clemens Gruber     | code beautifying mit kleineren Umbenennungen bei Funktionen und Variablen
-                               Anpassung für Heltec WiFi Kit 32 (ESP32 onboard OLED)
-                               - pins bei OLED-Initialisierung geändert
-                               - pins geändert, um Konflikte mit hard wired pins des OLEDs zu vermeiden
-  2019-02 Clemens Gruber     | Aktivierung der internen pull downs für alle digitalen Eingaenge
-  2019-02 Clemens Gruber     | "normale" pins zu Vcc / GND geaendert um die Verkabelung etwas einfacher und angenehmer zu machen
-  2020-05 Andreas Holzhammer | Anpassungen an das veränderte ;-( pin-Layout der Version 2 des Heltec
-                               wird verkauft als "New Wifi Kit 32" oder "Wifi Kit 32 V2"
-  2020-05 Marc Junker        | - Erweiterung von Poti auf Rotary Encoder
-                               - alle Serial.prints in #ifdef eingeschlossen
-                               - "Glas" nun als Array mit individuellem Tara
-                               - Korrekturwert und Auswahl der Füllmenge über Drücken & Drehen des Rotary einstellbar
-  2020-05 Andreas Holzhammer | - Tara pro abzufüllendem Glas automatisch anpassen (Variable tara_glas)
-                               - Code läuft auch ohne Waage
-  2020-06 Andreas Holzhammer | - Code wahlweise mit Heltec V1 oder V2 nutzbar
-                               - Code wahlweise mit Poti oder Rotary nutzbar
-                               - Tara pro Glas einstellbar
-                               - Öffnungswinkel für Maximale Öffnung und Feindosierung im Setup konfigurierbar
-                               - Korrektur und Glasgröße im Automatikmodus per Rotary Encoder Button wählbar
-                               - Preferences löschbar über Setup
-                               - Gewicht blinkt bei Vollautomatik, wenn nicht vollständig gefüllt
-                               - Nicht kalibrierte Waage anzeigen, fehlende Waage anzeigen
-                               - Tara wird nur bei >20g gesetzt, verhindert den Autostart bei leerer Waage
-                               - Tarieren der Waage bei jedem Start bis +-20g. Sonst Warnung
-  2020-07 Andreas Holzhammer | Version 0.2.4
-                               - SCALE_READS auf 2 setzen? ca. 100ms schneller als 3, schwankt aber um +-1g
-                               - Reihenfolge der Boot-Meldungen optimiert, damit nur relevante Warnungen ausgegeben werden
-                               - Autokorrektur implementiert
-                               - LOGO! und Umlaute (Anregung von Johannes Kuder)
-                               - Stop-Taste verlässt Setup-Untermenüs (Anregung von Johannes Kuder)
-                               - Preferences nur bei Änderung speichern
-  2020-07 Andreas Holzhammer | Version 0.2.5
-                               - Anzeige der vorherigen Werte im Setup
-                               - Kulanzwert für Autokorrektur einstellbar
-                               - Setup aufgeräumt, minimaler Servowinkel einstellbar
-  2020-07 Andreas Holzhammer | Version 0.2.6
-                               - Kalibrierung der Waage verbessert; Messewerte runden; Waage "aufheizen" vor Bootscreen
-                               - Aktiver Piezo-Buzzer (Idee von Johannes Kuder)
-  2020-07 Johannes Kuder     | Version 0.2.7
-                               - Zählwerk für abgefüllte Gläser und Gewicht (nur im Automatikbetrieb)
-  2020-07 Jeremias Bruker    | Version 0.2.8
-                               - "GlasTyp" in allen Menüs und Automatikmodus integriert
-                               - 5 Gläser können vom User im Menüpunkt "Fuellmenge" in Gewicht und GlasTyp konfiguriert werden
-                                 und werden nichtflüchtig gespeichert. So kann sich jeder User seine eigenen üblichen 5 Gläser anlegen
-                               - Stabilisierung des Waagenwerts nach Wunsch (define FEHLERKORREKTUR_WAAGE)
-                               - das Kalibriergewicht kann beim Kalibrierungsvorgang vom User verändert
-                                 werden (nicht jeder hat 500g als Eichgewicht) und wird nichtflüchtig gespeichert
-                               - rotierendes Hauptmenü
-                               - Umkehrbarer Servo für linksseitige Quetschhähne :-)
-  2020-10 Andreas Holzhammer | Version 0.2.8.1
-                               - Bugfix: Servo konnte im Manuellen Modus unter Minimum bewegt werden
-                               - Glastoleranz über Variable steuerbar auf +-20g angepasst
-  2020-12 Andreas Holzhammer | Version 0.2.9.1
-                               - Fortschrittsanzeige eingebaut
-                               - angepasst an ESP32Servo aus dem Bibliotheksverwalter
-  2021-01 Andreas Motl       | Version 0.2.9.1
-                               - PlatformIO-Support an neue Servo-Bibliothek angepasst
-  2021-02 Andreas Holzhammer | Version 0.2.10
-                               - Korrektur zwischen -90 und +20 anpassbar
-                               - Autokorrektur auch ohne Autostart
-                               - Preferences Flash-schonender implementiert
-  2021-07 Andreas Holzhammer | Version 0.2.11
-                               - Credits-Seite
-                               - Fix für Rotary mit Schrittweite > 1
-  2021-11 Andreas Holzhammer | Version 0.2.12
-                               - Glastoleranz einstellbar
-                               - Komfortverstellung für Füllmengen (1g/5g/25g Schritte)
-  2023-01 Clemens Gruber     | Version 0.2.13
-                               - pin-Anpassungen für Hardware-Version V3 des Heltec "WiFi Kit 32 V3" mit wieder mal geändertem pin-Layout
-                               - default HARDWARE_LEVEL ist nun 3 / Heltec V3
-                               - Anpassungen für den ESP32 Arduino core Version ≥ 2.x
-                                 - Display, U8g2: HW statt SW im constructor (ggf. Probleme mit älteren Heltec-Versionen)
-                                 - Rotary: de-bouncing code im isr2 auskommentiert, da sie zu Abstürzen führte
+  2018-05 Marc Vasterling    | pierwsza wersja,
+                               opublikowana w grupie na Facebooku "Imkerei und Technik. Eigenbau",
+                               Marc Vasterling: "każdy może swobodnie używać, modyfikować i udostępniać mój kod,
+                               o ile nie podpisuje go własnym nazwiskiem."
+  2018-06 Marc Vasterling    | ulepszona wersja,
+                               również opublikowana w grupie na Facebooku
+  2019-01 Marc Wetzel        | refaktoryzacja i dokumentacja,
+                               również opublikowana w grupie na Facebooku
+  2019-02 Clemens Gruber     | poprawa czytelności kodu z drobnymi zmianami nazw funkcji i zmiennych
+                               dostosowanie do Heltec WiFi Kit 32 (ESP32 z wbudowanym OLED)
+                               - zmiana pinów inicjalizacji OLED
+                               - zmiana pinów, aby uniknąć konfliktów ze sprzętowymi pinami OLED
+  2019-02 Clemens Gruber     | aktywacja wewnętrznych pull-down dla wszystkich wejść cyfrowych
+  2019-02 Clemens Gruber     | "zwykłe" piny zmienione na Vcc / GND, aby uprościć i poprawić okablowanie
+  2020-05 Andreas Holzhammer | dostosowanie do zmienionego ;-( układu pinów w wersji 2 Heltec
+                               sprzedawanej jako "New Wifi Kit 32" lub "Wifi Kit 32 V2"
+  2020-05 Marc Junker        | - rozszerzenie z potencjometru na enkoder obrotowy
+                               - wszystkie Serial.print zamknięte w #ifdef
+                               - "Glas" teraz jako tablica z indywidualną tarą
+                               - korekta i wybór ilości napełnienia poprzez obrót i przyciśnięcie enkodera
+  2020-05 Andreas Holzhammer | - automatyczne dostosowanie tary dla każdego napełnianego słoika (zmienna tara_glas)
+                               - kod działa również bez wagi
+  2020-06 Andreas Holzhammer | - kod może działać zarówno z Heltec V1, jak i V2
+                               - możliwość użycia potencjometru lub enkodera obrotowego
+                               - tara dla każdego słoika konfigurowalna
+                               - kąt otwarcia dla maksymalnego otwarcia i precyzyjnego dozowania konfigurowalny w ustawieniach
+                               - korekta i rozmiar słoika w trybie automatycznym wybierane przyciskiem enkodera
+                               - możliwość usunięcia preferencji w ustawieniach
+                               - miganie wagi w trybie automatycznym, jeśli słoik nie jest w pełni napełniony
+                               - wykrywanie nie skalibrowanej wagi, brakującej wagi
+                               - tara ustawiana tylko dla wartości >20g, zapobiega automatycznemu startowi przy pustej wadze
+                               - tarowanie wagi przy każdym uruchomieniu w zakresie +-20g, w przeciwnym razie ostrzeżenie
+  2020-07 Andreas Holzhammer | Wersja 0.2.4
+                               - ustawienie SCALE_READS na 2? około 100ms szybsze niż 3, ale zmienność +-1g
+                               - optymalizacja kolejności komunikatów startowych, aby wyświetlać tylko istotne ostrzeżenia
+                               - zaimplementowana autokorekta
+                               - LOGO! oraz obsługa niemieckich znaków (propozycja Johannes Kuder)
+                               - przycisk Stop wychodzi z menu ustawień (propozycja Johannes Kuder)
+                               - preferencje zapisywane tylko przy zmianach
+  2020-07 Andreas Holzhammer | Wersja 0.2.5
+                               - wyświetlanie poprzednich wartości w ustawieniach
+                               - regulowany zakres tolerancji autokorekty
+                               - uporządkowanie menu ustawień, możliwość ustawienia minimalnego kąta serwomechanizmu
+  2020-07 Andreas Holzhammer | Wersja 0.2.6
+                               - poprawiona kalibracja wagi; zaokrąglanie wartości pomiarowych;
+                                 "rozgrzewanie" wagi przed ekranem startowym
+                               - aktywny buzzer piezo (pomysł Johannes Kuder)
+  2020-07 Johannes Kuder     | Wersja 0.2.7
+                               - licznik napełnionych słoików i całkowitej masy (tylko w trybie automatycznym)
+  2020-07 Jeremias Bruker    | Wersja 0.2.8
+                               - "GlasTyp" zintegrowany we wszystkich menu i trybie automatycznym
+                               - 5 słoików konfigurowanych przez użytkownika w menu "Fuellmenge"
+                                 z wagą i typem, zapisane w pamięci nieulotnej
+                               - stabilizacja wartości wagi (define FEHLERKORREKTUR_WAAGE)
+                               - możliwość zmiany masy kalibracyjnej przez użytkownika podczas procesu kalibracji
+                                 (nie każdy ma 500g jako ciężar wzorcowy)
+                               - obrotowe menu główne
+                               - odwracalny serwomechanizm dla lewostronnych zaworów dozujących :-)
+  2020-10 Andreas Holzhammer | Wersja 0.2.8.1
+                               - poprawka: serwo mogło być przesunięte poniżej minimalnej wartości w trybie manualnym
+                               - regulowana tolerancja masy słoika (domyślnie +-20g)
+  2020-12 Andreas Holzhammer | Wersja 0.2.9.1
+                               - dodano wskaźnik postępu
+                               - dostosowanie do ESP32Servo z menedżera bibliotek
+  2021-01 Andreas Motl       | Wersja 0.2.9.1
+                               - dostosowanie PlatformIO do nowej biblioteki serwomechanizmu
+  2021-02 Andreas Holzhammer | Wersja 0.2.10
+                               - korekta w zakresie od -90 do +20
+                               - autokorekta także bez automatycznego startu
+                               - optymalizacja zapisu preferencji, oszczędzanie pamięci Flash
+  2021-07 Andreas Holzhammer | Wersja 0.2.11
+                               - strona podziękowań (Credits)
+                               - poprawka dla enkodera obrotowego ze skokiem > 1
+  2021-11 Andreas Holzhammer | Wersja 0.2.12
+                               - regulowana tolerancja wagi słoika
+                               - ulepszone ustawienia ilości napełniania (kroki 1g/5g/25g)
+  2023-01 Clemens Gruber     | Wersja 0.2.13
+                               - dostosowanie pinów do wersji sprzętowej V3 Heltec "WiFi Kit 32 V3"
+                               - domyślny poziom sprzętowy to teraz 3 / Heltec V3
+                               - dostosowania dla ESP32 Arduino core w wersji ≥ 2.x
+                                 - wyświetlacz, U8g2: HW zamiast SW w konstruktorze
+                                 - enkoder: kod debounce w isr2 zakomentowany, aby zapobiec awariom
 
 
-  This code is in the public domain.
+  Ten kod jest w domenie publicznej.
 
-  Hinweise zur Hardware
-  ---------------------
-  - bei allen digitalen Eingängen sind interne pull downs aktiviert, keine externen-Widerstände nötig!
+  Informacje dotyczące sprzętu
+  -----------------------------
+  - wszystkie wejścia cyfrowe mają aktywowane wewnętrzne pull-down, brak potrzeby zewnętrznych rezystorów!
+
 */
 
 #include <Arduino.h>
